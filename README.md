@@ -17,7 +17,7 @@ This section contains the projects I worked on as part of my data structures cla
 
 ---
 
-# Web Development Projects (Django)
+## Web Development Projects (Django)
 
 This section contains full-stack web development projects that I built using Django. These projects showcase my skills in building dynamic, scalable web applications.
 
@@ -93,10 +93,12 @@ This section contains full-stack web development projects that I built using Dja
 
 ---
 
-##Contact
+## Contact
 
 Feel free to reach out if you have any questions or feedback about my projects.
 
 Name: Mustafa Asif
 Email: ma8044@nyu.edu
 Github: https://github.com/ma8044
+
+---
