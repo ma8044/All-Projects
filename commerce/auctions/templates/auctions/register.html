@@ -1,0 +1,37 @@
+{% extends "auctions/layout.html" %}
+
+{% block title %}Register{% endblock %}
+{% block body %}
+    <div class="flex-container">
+        <h1 class="heading">Register</h1>
+
+        {% if message %}
+            <div>{{ message }}</div>
+        {% endif %}
+
+        <form action="{% url 'register' %}" method="post" class="flex-content">
+            {% csrf_token %}
+            <div class="form-group">
+                <input class="form-control" autofocus type="text" name="username" placeholder="Username" autocomplete="off">
+            </div>
+            <div class="form-group">
+                <input class="form-control" type="email" name="email" placeholder="Email Address" autocomplete="off">
+            </div>
+            <div class="form-group">
+                <input class="form-control" type="password" name="password" placeholder="Password">
+            </div>
+            <div class="form-group">
+                <input class="form-control" type="password" name="confirmation" placeholder="Confirm Password">
+            </div>
+            <div class="form-group">
+                <input class="btn btn-primary" type="submit" value="Register">
+            </div>
+        </form>
+        <div>
+            Already have an account? <a href="{% url 'login' %}" style="color: rgb(43, 103, 155)">Log In here.</a>
+        </div>
+    </div>
+    
+    
+
+{% endblock %}

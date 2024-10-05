@@ -1,0 +1,43 @@
+{% extends "auctions/layout.html" %}
+
+{% block title %}Create Listing{% endblock %}
+{% block body %}
+    <div class="flex-container">
+        <h1 class="heading">Create Listing</h1>
+
+        {% if message %}
+            <div>{{ message }}</div>
+        {% endif %}
+
+        <form action="{% url 'create' %}" method="post" class="flex-content">
+            {% csrf_token %}
+           
+            <div class="form-group">
+                <input class="form-control" autofocus type="text" name="title" placeholder="Title" maxlength="64" required>
+            </div>
+            
+            <div class="form-group">
+                <input class="form-control create" type="text" name="imgUrl" placeholder="Image URL (Optional)" maxlength="500">
+            </div>
+            
+            <div class="form-group">
+                <textarea class="form-control create" style="height:20vh; resize: none;" name="description" placeholder="Item Description" maxlength="500" required></textarea>
+            </div>
+            <div class="form-group">
+                <select name="category" class="form-control">
+                    <option selected disabled>Item Category</option>
+                    {% for category in categories %}
+                    <option value="{{category}}">{{category}}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="form-group row">
+                <strong class="label">$</strong>
+                <input class="form-control" type="number" style="width:10vw" placeholder="Starting Bid" name="bid" required>
+            </div>
+            <div class="form-group">
+                <input type="submit" class="btn btn-primary" value="Submit">
+            </div>
+        </form>
+    </div>
+{% endblock %}

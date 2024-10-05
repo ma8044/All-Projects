@@ -1,0 +1,166 @@
+{% extends "auctions/layout.html" %}
+{% block title %} {{listing.title}} {% endblock %}
+{% block body %}
+    <div class="flex-container" style="height:90vh">
+        {% if not listing.active and user == listing.winner %}
+            <h1 class="heading">Congratulations, You Won! 🎉🎉</h1>
+        {% endif %}
+        <div style="width: 90vw">
+            <div class="container-fluid custom">
+                <div class="row">
+                    <div class="col-4 align-self-center vertical-line">
+                        <img src="{{listing.img}}" width="100%" alt="{{listing.title}}">
+                    </div>
+                    <div class="col-4 align-self-center vertical-line">
+                        <div class="row">
+                            <div class="col">
+                                <h1 class="heading" style="font-size: 8vh">{{listing.title}}</h1>
+                            </div>
+                        </div>
+                        <hr style="background-color: rgb(201, 201, 201); height: 0.01vh">
+                        <div class="row">
+                            <div class="col">
+                                <h4 class="text">{{listing.description}}</h4>
+                            </div>
+                        </div>
+                        <hr style="background-color: rgb(201, 201, 201); height: 0.01vh">
+                        <div class="row">
+                            <div class="col text vertical-line">
+                                <strong>Posted By: </strong>{{listing.creator.username}}
+                            </div>
+                            <div class="col text">
+                                <strong>Status: </strong>
+                                {% if listing.active %}
+                                    Active
+                                {% else %}
+                                    Closed
+                                {% endif %}
+                            </div>
+                        </div>
+                        <hr style="background-color: rgb(201, 201, 201); height: 0.01vh">
+                        <div class="row text">
+                            <div class="col vertical-line">
+                                <strong>Starting Bid: $</strong>{{listing.startBid}}
+                            </div>
+                            <div class="col">
+                                <strong>Current Bid: $</strong>{{listing.bids.first.bid}}
+                            </div>
+                        </div>
+                        <hr style="background-color: rgb(201, 201, 201); height: 0.01vh">
+                        {% if user.is_authenticated and user != listing.creator and listing.active %}
+                        <form action="{% url 'listing' listing.id %}" method="post">
+                        {% csrf_token %}
+                        <div class="row text">
+                            <div class="col">
+                                <div class="row" style="margin-left: 0vw">
+                                    <strong style="margin: 0.6vh">Place Bid: $</strong>
+                                    <input type="number" class="form-control" style="width: 5vw" name="bid" required>
+                                </div>  
+                            </div>
+                            <div class="col">
+                                <input type="submit" class=" btn btn-primary" style="margin-top: 0vh;" value="Place Bid">
+                            </div>
+                        </div>
+                        </form>
+                            {% if message %}
+                            <hr style="background-color: rgb(201, 201, 201); height: 0.01vh">
+                            <div class="row text">
+                                <div class="col">
+                                    <strong>{{message}}</strong>
+                                </div>
+                            </div>
+                            {% endif %}
+                            <hr style="background-color: rgb(201, 201, 201); height: 0.01vh">
+                            <form action="{% url 'addtowatchlist' listing.id %}" method="post">
+                                {% csrf_token %}
+                                <div class="row text">
+                                    <div class="col">
+                                        <input type="submit" value="Add to Watchlist" class="btn btn-primary">
+                                    </div>
+                                </div>
+                            </form>
+                        {% elif listing.active %}
+                        <form>
+                            <div class="row text">
+                                <div class="col">
+                                    <div class="row" style="margin-left: 0vw">
+                                        <strong style="margin: 0.6vh">Place Bid: $</strong>
+                                        <input type="number" class="form-control" style="width: 5vw" name="bid" required disabled>
+                                    </div>  
+                                </div>
+                                <div class="col">
+                                    <input type="submit" class=" btn btn-primary" style="margin-top: 0vh;" value="Place Bid" disabled>
+                                </div>
+                            </div>
+                            </form>
+                            <hr style="background-color: rgb(201, 201, 201); height: 0.01vh">
+                        {% endif %}
+                        
+                        {% if not user.is_authenticated and listing.active %}
+                        <div class="row text">
+                            <div class="col">
+                                <strong>You must be signed in to place a bid.</strong>
+                            </div>
+                        </div>
+                        {% endif %}
+                        {% if user == listing.creator and listing.active %}
+                        <form method="post" action="{% url 'close' listing.id %}">
+                            {% csrf_token %}
+                            <div class="row text">
+                                <div class="col">
+                                    <input type="submit" class="btn btn-primary" value="Close Listing">
+                                </div>
+                            </div>
+                        </form>
+                        {% endif %}
+                        {% if user == listing.creator and listing.winner != NULL and not listing.active %}
+                        <div class="row text">
+                            <div class="col">
+                                <strong>Listing Closed Successfully. The winner is {{listing.winner.username}}</strong>
+                            </div>
+                        </div>
+                        {% elif user == listing.creator and listing.winner == NULL and not listing.active %}
+                        <div class="row text">
+                            <div class="col">
+                                <strong>Listing Closed Successfully. No Bids were placed.</strong>
+                            </div>
+                        </div>
+                        {% endif %}
+                    </div>
+                        
+                    <div class="col-4 align-self-center">
+                        <div class="flex-content">
+                            <div class="scrollable-container">
+                                {% for comment in listing.comments.all %}
+                                <p><strong>{{comment.creator.username}}</strong></p>
+                                <p style="margin-top:-3vh; margin-bottom: 0.5vh;">{{comment.comment}}</p>
+                                {% endfor %}
+                            </div>
+                        </div>
+                        {% if listing.active and user.is_authenticated %}
+                        <form method="post" action="{% url 'comment' listing.id %}">
+                            {% csrf_token %}
+                            <div class="row pad flexy-form">
+                                <input type="text" class="form-control" style="width:70%" placeholder="Enter Comment" name="comment" required autocomplete="off">
+                                <input type="submit" class="btn btn-primary form-control marginal" value="Send" style="width:auto">
+                            </div>
+                        </form>
+                        {% else %}
+                        <form method="post" action="{% url 'comment' listing.id %}">
+                            {% csrf_token %}
+                            <div class="row pad flexy-form">
+                                <input type="text" class="form-control" style="width:70%" placeholder="Enter Comment" name="comment" required autocomplete="off" disabled>
+                                <input type="submit" class="btn btn-primary form-control marginal" value="Send" style="width:auto" disabled>
+                            </div>
+                        </form>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+
+
+
+{% endblock %}

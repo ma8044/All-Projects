@@ -1,0 +1,59 @@
+{% extends "auctions/layout.html" %}
+{% block title %}{{title}}{% endblock %}
+{% block body %}
+    <div class="flex-content">
+        <h1 class="heading" style="margin-top: 5vh;">{{title}}</h1>
+
+        <div style="width:60vw">
+            <hr style="margin-bottom:2vh; background-color: rgb(43, 103, 155); height: 0.01vh">
+            {% if listings %}
+            {% for listing in listings %}
+            <a href="{% url 'listing' listing.id %}" class="custom-link">
+                <div class="container-fluid text-center custom custom1">
+                    <div class="row">
+                        <div class="col-3 align-self-center">
+                            <img src="{{listing.img}}" width="100%" alt="{{listing.title}}" >
+                        </div>
+                        <div class="col-9 align-self-center">
+                            <div class="row">
+                                <div class="col">
+                                    <h1><strong>{{listing.title}}</strong></h1>
+                                    <hr style="background-color: rgb(201, 201, 201); height: 0.01vh">
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col">
+                                    <h6>{{listing.description}}</h6>
+                                    <hr style="background-color: rgb(201, 201, 201); height: 0.01vh">
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col">
+                                    <strong>Category: </strong>{{listing.category}}
+                                <hr style="background-color: rgb(201, 201, 201); height: 0.01vh">
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col vertical-line">
+                                    <strong>Posted By: </strong>{{listing.creator.username}}
+                                </div>
+                                <div class="col">
+                                    <strong>Current Bid: $</strong>{{listing.bids.first.bid}}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </a>
+            <hr style="margin-bottom:2vh; background-color: rgb(43, 103, 155); height: 0.01vh">
+            
+            {% endfor %}
+            {% else %}
+            <div class="flex-content">
+                <h3>No Listings available.</h3>
+            </div>
+            {% endif %}
+        </div>
+    </div>
+    
+{% endblock %}

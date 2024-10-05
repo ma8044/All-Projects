@@ -1,0 +1,27 @@
+{% extends "encyclopedia/layout.html" %}
+
+{% block title %}
+    New Page
+{% endblock %}
+
+{% block body %}
+    <h1>New Page:</h1>
+    <div>
+        <form action="{% url 'new' %}" method="post">
+            {% csrf_token %}
+            <div class = "form-group">
+                <label for="title">Entry Title:</label>
+                <input class="title form-control" type="text" name="q" placeholder="Title of New Page" required autocomplete="off">
+            </div>
+            <div class="form-group">
+                <label for="content">Entry Content:</label>
+                <textarea name="content" class="form-control content" required placeholder="Enter Content Here"></textarea>
+            </div>
+            <div class="form-group">
+                <input type="submit" class="btn btn-primary" value="Submit">
+            </div>
+            
+        </form>
+    </div>
+   
+{% endblock %}

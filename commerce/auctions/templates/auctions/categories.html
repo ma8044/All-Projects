@@ -1,0 +1,17 @@
+{% extends "auctions/layout.html" %}
+
+{% block title %}Categories{% endblock %}
+{% block body %}
+<div class="flex-container">
+    <h1 class="heading">Categories</h1>
+    <ul class="flex-content" style="list-style-type: none;">
+        {% for category in categories %}
+        <li>
+            <a href="{% url 'category' category %}">
+                <h3>{{category}}</h3>
+            </a>
+        </li>
+        {% endfor %}
+    </ul>
+</div>
+{% endblock %}

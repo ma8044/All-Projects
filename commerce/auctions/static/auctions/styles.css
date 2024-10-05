@@ -1,0 +1,116 @@
+.nav-link {
+    color: rgb(43, 103, 155);
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    font-size:medium;
+}
+
+.flex-container {
+    display: flex;
+    flex-direction: column;
+    height: 70vh;
+    align-items:center;
+    justify-content: center;
+}
+.flex-content {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.heading {
+    color: rgb(43, 103, 155);
+    font-size: 10vh;
+}
+
+.form-control {
+    width: 20vw
+}
+
+.btn-primary {
+    background-color: rgb(43, 103, 155);
+    margin-top: -1vh;
+    margin-bottom: -1vh;
+    border-color: rgb(43, 103, 155);
+}
+
+.btn-primary:hover {
+    background-color: rgb(42, 90, 132);
+    border-color: rgb(42, 90, 132);
+}
+
+.label {
+    font-size: large;
+    margin: 5px;
+}
+
+.create {
+    width: 30vw;
+}
+
+textarea:text {
+    height: 30vh;
+    resize: none;
+}
+
+.text {
+    color: rgb(43, 103, 155)
+}
+
+.vertical-line {
+    border-right: 0.15vw solid;
+    border-color: rgb(201, 201, 201);
+    height:100%
+}
+
+.custom {
+    border-radius: 20px;
+    background-color: rgb(244, 244, 253);
+    padding: 20px;
+}
+
+.custom1:hover {
+    background-color: rgb(231, 231, 244);
+}
+
+.custom-link {
+    all: unset; /* Resets all properties except display, direction, and unicode-bidi */
+    display: inline; /* Ensure it remains an inline element */
+    color: inherit; /* Inherit the color from its parent */
+    text-decoration: none; /* Remove underline */
+    cursor: pointer;
+}
+
+.custom-link:hover {
+    all: unset; /* Resets all properties except display, direction, and unicode-bidi */
+    display: inline; /* Ensure it remains an inline element */
+    color: inherit; /* Inherit the color from its parent */
+    text-decoration: none; /* Remove underline */
+    cursor: pointer;
+}
+
+.scrollable-container {
+    width: 90%; /* Set the width of the container */
+    height: 40vh; /* Set the height of the container */
+    overflow: auto; /* Enable scrolling when content overflows */
+    border: 1px solid #ccc; /* Optional: Add a border to visually separate the container */
+    padding: 15px; /* Optional: Add padding for better content spacing */
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1); /* Optional: Add a box shadow for a nice visual effect */
+    background-color: whitesmoke;
+}
+
+.pad {
+    margin-top: 1vh;
+    margin-left:0vw;
+}
+
+.marginal {
+    margin-top:0vh
+}
+
+.flexy-form {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    flex-direction: row;
+}
